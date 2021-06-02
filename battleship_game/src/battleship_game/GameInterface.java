@@ -1,4 +1,4 @@
-package Battleship.battleship_game.src;
+package battleship_game;
 
 public interface GameInterface {
 
