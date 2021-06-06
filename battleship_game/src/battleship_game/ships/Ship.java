@@ -8,7 +8,7 @@ TODO - What will happen when a ship reaches 0 health?
 TODO -
  */
 public abstract class Ship {
-    protected int xCoordinate; 
+    protected int xCoordinate;
     protected int yCoordinate;
     protected int size;
     protected int health;
