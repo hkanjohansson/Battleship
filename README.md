@@ -2,6 +2,8 @@
 
 ## Rules
 
+### Ships
+The name of the ships comes from the first of the two lists stated in https://en.wikipedia.org/wiki/Battleship_(game). 
 ### Scoring
 The score is set in the following way:
 
