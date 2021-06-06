@@ -1,4 +1,4 @@
-package battleship_game;
+package battleship_game.ships;
 
 public class Submarine extends Ship{
 

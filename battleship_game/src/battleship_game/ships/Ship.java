@@ -1,4 +1,4 @@
-package battleship_game;
+package battleship_game.ships;
 
 /*
 Placement of ships takes place in the Game class
@@ -8,7 +8,7 @@ TODO - What will happen when a ship reaches 0 health?
 TODO -
  */
 public abstract class Ship {
-    protected int xCoordinate; // TODO - Should these fields be protected or private?
+    protected int xCoordinate; 
     protected int yCoordinate;
     protected int size;
     protected int health;

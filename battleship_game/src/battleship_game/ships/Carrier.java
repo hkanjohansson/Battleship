@@ -1,8 +1,8 @@
-package battleship_game;
+package battleship_game.ships;
 
-public class Destroyer extends Ship{
+public class Carrier extends Ship{
 
-    public Destroyer(int size, int health, int x, int y) {
+    public Carrier(int size, int health, int x, int y) {
         super.size = size;
         super.health = health;
         super.xCoordinate = x;

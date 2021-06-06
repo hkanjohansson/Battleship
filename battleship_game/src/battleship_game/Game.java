@@ -1,8 +1,10 @@
 package battleship_game;
 
+import battleship_game.players.Player;
+import battleship_game.ships.Ship;
+
 import java.util.Iterator;
 import java.lang.StringBuilder;
-import java.util.List;
 
 /*
 TODO - Add all ships to a list
@@ -29,9 +31,10 @@ public class Game implements GameInterface {
     }
 
     @Override
-    public void addShip(Ship s) {
+    public void addPlayer(Player p) {
 
     }
+
 
     @Override
     public String toString() {

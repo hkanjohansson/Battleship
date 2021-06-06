@@ -1,13 +1,15 @@
-package battleship_game;
+package battleship_game.ships;
 
-public class Battleship extends Ship{
+public class Cruiser extends Ship{
 
-    public Battleship(int size, int health, int x, int y) {
+    public Cruiser(int size, int health, int x, int y) {
         super.size = size;
         super.health = health;
         super.xCoordinate = x;
         super.yCoordinate = y;
     }
+
+
 
     @Override
     public int getHealth() {
