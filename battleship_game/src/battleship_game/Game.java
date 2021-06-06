@@ -14,13 +14,11 @@ TODO - Make a player class
 public class Game implements GameInterface {
     private int width;
     private int height;
-    private int numberOfShips;
-    private boolean ai;
+    private boolean ai; // Initialize the game with an AI player or a human player 2
 
     public Game(boolean ai) {
         this.width = 10;
         this.height = 10;
-        this.numberOfShips = 5;
         this.ai = ai;
     }
 
@@ -35,21 +33,19 @@ public class Game implements GameInterface {
 
     }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
 
     @Override
     public String toString() {
-        StringBuilder gameArea = new StringBuilder();
-
-        for (int i = 0; i < width; i++) {
-            gameArea.append("-   ");
-        }
-        gameArea.append("\n");
-
-        String temp = gameArea.toString();
-
-        for (int i = 0; i < height; i++) {
-            gameArea.append(temp);
-        }
-        return gameArea.toString();
+        return null;
     }
 }

@@ -15,7 +15,7 @@ public abstract class Ship {
 
     public abstract int getHealth();
     public abstract int getXCoordinate();
-    public abstract int getYCoordinate();
+    public abstract int getYCoordinate(); // TODO - Return start and end points of x and y
     public abstract void reduceHealth();
     public abstract String toString();
 }
