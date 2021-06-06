@@ -2,7 +2,22 @@ package battleship_game;
 
 import java.util.Iterator;
 
-public class Game implements GameInterface{
+/*
+TODO - Add all ships to a list
+TODO - Make a player class
+
+ */
+public class Game implements GameInterface {
+
+    /*
+    TODO - Add a constructor
+     */
+    private int width;
+    private int height;
+
+    public Game() {
+
+    }
 
     @Override
     public int width() {
