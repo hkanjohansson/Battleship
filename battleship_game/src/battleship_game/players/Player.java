@@ -16,7 +16,7 @@ public abstract class Player {
     public abstract int getScore();
     public abstract int getTotalHealth();
     public abstract List<Ship> getShips();
-    public abstract void addShip(Ship s);
+    public abstract void placeShip(Ship s);
     public abstract void fireWeapon(int x, int y); // If hit, increase score
     public abstract String toString(); // Print game area in each turn
 }

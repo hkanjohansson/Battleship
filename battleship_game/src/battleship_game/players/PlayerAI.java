@@ -23,7 +23,7 @@ public class PlayerAI extends Player{
     }
 
     @Override
-    public void addShip(Ship s) {
+    public void placeShip(Ship s) {
 
     }
 

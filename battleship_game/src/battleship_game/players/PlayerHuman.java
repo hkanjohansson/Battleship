@@ -30,10 +30,11 @@ public class PlayerHuman extends Player {
     }
 
     @Override
-    public void addShip(Ship s) {
+    public void placeShip(Ship s) {
         if (ships.size() < NUMBER_OF_SHIPS) {
             ships.add(s);
         }
+
 
     }
 

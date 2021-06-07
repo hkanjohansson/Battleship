@@ -1,46 +1,34 @@
 package battleship_game;
 
 import battleship_game.players.Player;
-import battleship_game.ships.Ship;
 
-import java.util.Iterator;
-import java.lang.StringBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
-/*
-TODO - Add all ships to a list
-TODO - Make a player class
-
- */
 public class Game implements GameInterface {
-    private int width;
-    private int height;
+
+    List<Player> players;
+    private final int NUMBER_OF_PLAYERS = 2;
     private boolean ai; // Initialize the game with an AI player or a human player 2
 
     public Game(boolean ai) {
-        this.width = 10;
-        this.height = 10;
         this.ai = ai;
+        this.players = new ArrayList<>();
     }
 
-
-    @Override
-    public Iterator<Ship> shipIter() {
-        return null;
-    }
 
     @Override
     public void addPlayer(Player p) {
-
+        if (players.size() < NUMBER_OF_PLAYERS) {
+            players.add(p);
+        } else {
+            throw new IllegalArgumentException("No more than two players is allowed.");
+        }
     }
 
     @Override
-    public int getWidth() {
-        return width;
-    }
+    public void hits() {
 
-    @Override
-    public int getHeight() {
-        return height;
     }
 
 

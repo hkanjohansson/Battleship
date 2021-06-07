@@ -1,12 +1,14 @@
 package battleship_game.ships;
 
+import java.util.ArrayList;
+
 public class Cruiser extends Ship{
 
     public Cruiser(int size, int health, int x, int y) {
         super.size = size;
         super.health = health;
-        super.xCoordinate = x;
-        super.yCoordinate = y;
+        super.xStart = x;
+        super.yStart = y;
     }
 
 
@@ -17,13 +19,28 @@ public class Cruiser extends Ship{
     }
 
     @Override
-    public int getXCoordinate() {
-        return xCoordinate;
+    public int[] getXCoordinate() {
+        return new int[] {xStart, xEnd};
     }
 
     @Override
-    public int getYCoordinate() {
-        return yCoordinate;
+    public int[] getYCoordinate() {
+        return new int[] {yStart, yEnd};
+    }
+
+    @Override
+    public void setXEnd(int shipSize) {
+
+    }
+
+    @Override
+    public void setYEnd(int shipSize) {
+
+    }
+
+    @Override
+    public ArrayList<int[]> getShipCoordinates() {
+        return null;
     }
 
     @Override
