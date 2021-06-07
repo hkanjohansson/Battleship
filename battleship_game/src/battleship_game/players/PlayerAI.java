@@ -28,7 +28,7 @@ public class PlayerAI extends Player{
     }
 
     @Override
-    public void fireWeapon() {
+    public void fireWeapon(int x, int y) {
 
     }
 

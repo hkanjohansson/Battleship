@@ -10,6 +10,7 @@ public interface GameInterface {
     void addPlayer(Player p); // Add ship for a player
     public int getWidth();
     public int getHeight();
+    // TODO - Add another method that takes care of the hits?
     String toString(); // Print scoreboard at the end of the game
 
 }
