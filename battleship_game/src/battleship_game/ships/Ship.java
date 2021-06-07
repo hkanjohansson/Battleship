@@ -21,6 +21,7 @@ public abstract class Ship {
     public abstract int getHealth();
     public abstract int[] getXCoordinate();
     public abstract int[] getYCoordinate();
+    public abstract int getSize();
     public abstract void setXEnd(int shipSize); // Input +- ship size or 0
     public abstract void setYEnd(int shipSize); // Input +- ship size or 0
     public abstract ArrayList<int[]> getShipCoordinates(); // TODO - Return start and end points of x and y

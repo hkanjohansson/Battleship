@@ -31,6 +31,11 @@ public class Battleship extends Ship{
     }
 
     @Override
+    public int getSize() {
+        return 0;
+    }
+
+    @Override
     public void setXEnd(int shipSize) {
 
     }

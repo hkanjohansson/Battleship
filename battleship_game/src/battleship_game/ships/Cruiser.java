@@ -29,6 +29,11 @@ public class Cruiser extends Ship{
     }
 
     @Override
+    public int getSize() {
+        return 0;
+    }
+
+    @Override
     public void setXEnd(int shipSize) {
 
     }

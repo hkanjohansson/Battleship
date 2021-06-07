@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class Carrier extends Ship{
 
-    public Carrier(int size, int xStart, int yStart) {
+    public Carrier() {
         super.alive = true;
-        super.size = size;
-        super.health = size;
-        super.xStart = xStart;
-        super.yStart = yStart;
+        super.size = 5;
+        super.health = 5;
+        super.xStart = 0;
+        super.yStart = 0;
     }
-
 
     @Override
     public int getHealth() {
@@ -26,6 +25,11 @@ public class Carrier extends Ship{
     @Override
     public int[] getYCoordinate() {
         return new int[]{yStart, yEnd};
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 
     @Override
@@ -62,15 +66,16 @@ public class Carrier extends Ship{
 
     @Override
     public void reduceHealth() {
+
         if (health > 0) {
             health--;
         } else {
             alive = false;
         }
 
-
     }
 
+    // TODO - Print coordinates of ship
     @Override
     public String toString() {
         return "This is a carrier. The carrier is of size: " + size + ".";
