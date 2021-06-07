@@ -1,16 +1,17 @@
 package battleship_game.players;
 
-import battleship_game.Game;
 import battleship_game.ships.Ship;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerHuman extends Player{
-    private final int NUMBER_OF_SHIPS = 5;
+public class PlayerHuman extends Player {
 
-    public PlayerHuman () {
-        super.ships = new ArrayList<>();
+
+    public PlayerHuman() {
+        ships = new ArrayList<>();
+        totalHealth = 0;
+
     }
 
     @Override
@@ -37,7 +38,7 @@ public class PlayerHuman extends Player{
     }
 
     @Override
-    public void fireWeapon() {
+    public void fireWeapon(int x, int y) {
 
     }
 
@@ -45,14 +46,14 @@ public class PlayerHuman extends Player{
     public String toString() {
         StringBuilder gameArea = new StringBuilder();
 
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < WIDTH; i++) {
             gameArea.append("-   ");
         }
         gameArea.append("\n");
 
         String temp = gameArea.toString();
 
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < HEIGHT; i++) {
             gameArea.append(temp);
         }
         return gameArea.toString();
