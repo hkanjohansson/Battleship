@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 public class Destroyer extends Ship{
 
-    public Destroyer(int size, int health, int x, int y) {
-        super.size = size;
-        super.health = health;
-        super.xStart = x;
-        super.yStart = y;
-    }
+    public Destroyer() {
+        super.alive = true;
+        super.size = 2;
+        super.health = 2;
 
+    }
 
     @Override
     public int getHealth() {
@@ -19,42 +18,75 @@ public class Destroyer extends Ship{
 
     @Override
     public int[] getXCoordinate() {
-        return new int[] {xStart, xEnd};
+        return new int[]{xStart, xEnd};
     }
 
     @Override
     public int[] getYCoordinate() {
-        return new int[] {yStart, yEnd};
+        return new int[]{yStart, yEnd};
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
+    }
+
+    @Override
+    public void setXStart(int xStart) {
+        super.xStart = xStart;
+    }
+
+    @Override
+    public void setYStart(int yStart) {
+        super.yStart = yStart;
     }
 
     @Override
     public void setXEnd(int shipSize) {
-
+        xEnd = xStart + shipSize;
     }
 
     @Override
     public void setYEnd(int shipSize) {
-
+        yEnd = yStart + shipSize;
     }
 
     @Override
     public ArrayList<int[]> getShipCoordinates() {
-        return null;
+        int diffX = xEnd - xStart;
+        int diffY = yEnd - yStart;
+
+        ArrayList<int[]> coordinates = new ArrayList<>();
+
+        if (diffX > 0) {
+            for (int i = 0; i < diffX; i ++) {
+                coordinates.add(new int[]{xStart + i, yStart});
+            }
+
+        } else {
+            for (int i = 0; i < diffY; i ++) {
+                coordinates.add(new int[]{xStart, yStart + i});
+            }
+
+        }
+
+        return coordinates;
     }
 
     @Override
     public void reduceHealth() {
-        health--;
+
+        if (health > 0) {
+            health--;
+        } else {
+            alive = false;
+        }
+
     }
 
-    // TODO - Write toString method
+    // TODO - Print coordinates of ship
     @Override
     public String toString() {
-        return null;
+        return "This is a destroyer. The destroyer is of size: " + size + ".";
     }
 }

@@ -8,8 +8,7 @@ public class Carrier extends Ship{
         super.alive = true;
         super.size = 5;
         super.health = 5;
-        super.xStart = 0;
-        super.yStart = 0;
+
     }
 
     @Override
@@ -30,6 +29,16 @@ public class Carrier extends Ship{
     @Override
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public void setXStart(int xStart) {
+        super.xStart = xStart;
+    }
+
+    @Override
+    public void setYStart(int yStart) {
+        super.yStart = yStart;
     }
 
     @Override

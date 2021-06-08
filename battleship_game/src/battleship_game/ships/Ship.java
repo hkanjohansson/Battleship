@@ -22,9 +22,11 @@ public abstract class Ship {
     public abstract int[] getXCoordinate();
     public abstract int[] getYCoordinate();
     public abstract int getSize();
-    public abstract void setXEnd(int shipSize); // Input +- ship size or 0
-    public abstract void setYEnd(int shipSize); // Input +- ship size or 0
-    public abstract ArrayList<int[]> getShipCoordinates(); // TODO - Return start and end points of x and y
+    public abstract void setXStart(int xStart);
+    public abstract void setYStart(int yStart);
+    public abstract void setXEnd(int shipSize);
+    public abstract void setYEnd(int shipSize);
+    public abstract ArrayList<int[]> getShipCoordinates(); // Return all ship coordinates
     public abstract void reduceHealth();
     public abstract String toString();
 }
