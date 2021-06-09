@@ -8,10 +8,6 @@ import java.util.Scanner;
 
 public class PlayerHuman extends Player {
 
-    /*
-    TODO - Initialize the ships list with all the types of ships
-
-     */
     public PlayerHuman() {
         ships = new ArrayList<>();
         ships.add(new Carrier());
@@ -25,7 +21,6 @@ public class PlayerHuman extends Player {
 
         totalHealth = 0;
 
-        System.out.println("Hej: " + WIDTH);
     }
 
 
@@ -49,35 +44,22 @@ public class PlayerHuman extends Player {
 
         Scanner in = new Scanner(System.in);
 
-
-
-
-
-        /*
-        TODO - Check for available coordinates
-             - Fix so that negative coordinates cannot be chosen
-                (Generate an error message in the beginning of the method?)
-             - If an occupied coordinate is chosen, start all over with the placement
-         */
-
         if (ships.size() == NUMBER_OF_SHIPS) {
             Ship shipToPlace = ships.remove(0);
 
             System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
             int xStart = in.nextInt();
             int yStart = in.nextInt();
-            s.setXStart(xStart);
-            s.setYStart(yStart);
+            shipToPlace.setXStart(xStart);
+            shipToPlace.setYStart(yStart);
 
             System.out.println("Do you want to place horizontal? Then input an integer greater than or equal to 0. " +
                     "If not, provide an integer smaller than 0 to proceed to vertical");
 
             int hori = in.nextInt();
-            int shipSize = s.getSize();
+            int shipSize = shipToPlace.getSize();
 
             if (hori >= 0 && shipToPlace.getXCoordinate()[0] + shipSize <= 10 && yStart < 10) {
-                shipToPlace.setXEnd(shipSize);
-
                 for (int i = 0; i < shipSize; i++) {
                     shipsArea[yStart][xStart + i] = 1;
                     System.out.println(shipsArea[yStart][xStart]);
@@ -90,95 +72,82 @@ public class PlayerHuman extends Player {
                 }
             }
 
+            totalHealth += shipToPlace.getSize();
+
         }
 
-        /*
-        while (ships.size() > 0) {
+        while (ships.size() < NUMBER_OF_SHIPS && ships.size() > 0) {
+            System.out.println(toString());
+
             Ship shipToPlace = ships.remove(0);
+
             boolean placed = false;
-            boolean available = false;
-
-            System.out.println(shipToPlace.toString() + " Place your ship.");
-
-
 
             while (!placed) {
 
-                for (int i = 0; i < WIDTH; i++) {
-                    for (int j = 0; j < HEIGHT; j++) {
-                        if ()
-                    }
-                }
-            }
-        }
+                boolean available = true;
 
-        */
+                System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
+                int xStart = in.nextInt();
+                int yStart = in.nextInt();
+                s.setXStart(xStart);
+                s.setYStart(yStart);
 
-        /*
-        while (!placed) {
+                System.out.println("Do you want to place horizontal? Then input an integer " +
+                        "greater than or equal to 0. " +
+                        "If not, provide an integer smaller than 0 to proceed to vertical");
 
+                int hori = in.nextInt();
+                int shipSize = shipToPlace.getSize();
 
+                if (hori >= 0 && shipToPlace.getXCoordinate()[0] + shipSize <= 10 && yStart < 10) {
 
-
-
-
-
-                for (int i = 0; i < shipsPlaced.size(); i++) {
-                    ArrayList<int[]> checkAvailable = shipsPlaced.get(i).getShipCoordinates();
-
-
-                    for (int j = 0; j < checkAvailable.size(); j++) {
-                        System.out.println("hej");
-                        if (xStart + j != checkAvailable.get(i)[0] &&
-                                yStart != checkAvailable.get(i)[1]) {
-                            available = true;
-                        } else {
+                    for (int i = 0; i < shipSize; i++) {
+                        if (shipsArea[yStart][xStart + i] != 0) {
                             available = false;
-                            System.out.println("This spot is occupied. Try placing your ship correctly.");
+                            System.out.println("Try placing your ship where there is no other.");
+                        }
+                        break;
+                    }
+
+                    if (available) {
+                        for (int i = 0; i < shipSize; i++) {
+                            shipsArea[yStart][xStart + i] = 1;
+                            System.out.println(shipsArea[yStart][xStart]);
+                            totalHealth += shipToPlace.getSize();
+                            placed = true;
                         }
                     }
 
-                }
 
-                if (available) {
-                    s.setXEnd(shipSize);
-                    totalHealth += s.getSize();
-                    placed = true;
-                    shipsPlaced.add(s);
-                }
+                } else if (hori < 0 && shipToPlace.getYCoordinate()[0] + shipSize <= 10 && xStart < 10) {
 
-            } else if ( hori <= 0 && s.getYCoordinate()[0] + shipSize <= 10){
-
-                for (int i = 0; i < shipsPlaced.size(); i++) {
-                    ArrayList<int[]> checkAvailable = shipsPlaced.get(i).getShipCoordinates();
-
-                    for (int j = 0; j < checkAvailable.size(); j++) {
-                        if (xStart != checkAvailable.get(i)[0] &&
-                                yStart + j != checkAvailable.get(i)[1]) {
-                            available = true;
-                        } else {
+                    for (int i = 0; i < shipSize; i++) {
+                        if (shipsArea[yStart + i][xStart] != 0) {
                             available = false;
-                            System.out.println("This spot is occupied. Try placing your ship correctly.");
+                            System.out.println("Try placing your ship where there is no other.");
                         }
                     }
 
+                    if (available) {
+                        for (int i = 0; i < shipSize; i++) {
+                            shipsArea[yStart + i][xStart] = 1;
+                            System.out.println(shipsArea[xStart][yStart]);
+                            totalHealth += shipToPlace.getSize();
+                            placed = true;
+                        }
+                    }
+
+                } else {
+                    System.out.println("Place your ship within the game area.");
                 }
 
-                if (available) {
-                    s.setYEnd(shipSize);
-                    totalHealth += s.getSize();
-                    placed = true;
-                    shipsPlaced.add(s);
-                }
-
-            } else {
-                System.out.println("Try placing your ship correctly");
             }
-
         }
-        */
-        System.out.println("Hej");
+
+        System.out.println(toString());
     }
+
 
     @Override
     public void fireWeapon(int x, int y) {
@@ -193,7 +162,7 @@ public class PlayerHuman extends Player {
         for (int i = 0; i < WIDTH; i++) {
             shipAreaString.append("{ ");
             for (int j = 0; j < HEIGHT; j++) {
-                if (shipsArea[i][j] != 0){
+                if (shipsArea[i][j] != 0) {
                     shipAreaString.append("X ");
                 } else {
                     shipAreaString.append(shipsArea[i][j] + " ");
