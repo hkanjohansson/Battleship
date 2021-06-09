@@ -9,6 +9,8 @@ public abstract class Player {
     protected final int NUMBER_OF_SHIPS = 5;
     protected final int WIDTH = 10;
     protected final int HEIGHT = 10;
+    protected int[][] shipsArea;
+    protected int[][] fireArea;
     protected int score;
     protected int totalHealth;
     protected List<Ship> ships;
