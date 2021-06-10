@@ -40,6 +40,9 @@ public class Game implements GameInterface {
         }
     }
 
+    /*
+    TODO - Clean up code
+     */
     @Override
     public void playGame() {
         Player p1 = players.get(0);
@@ -61,15 +64,17 @@ public class Game implements GameInterface {
         while (p1Health > 0 && p2Health > 0) {
             int[] shot = players.get(turn % 2).fireWeapon();
 
-            //int[][] weaponsFired = players.get(turn % 2).getFireArea();
+            int[][] weaponsFired = players.get(turn % 2).getFireArea();
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
 
             if (shipsPlacement[shot[1]][shot[0]] != 0) {
                 players.get(turn % 2).setScore(1);
                 players.get((turn + 1) % 2).setTotalHealth();
+                weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit
                 System.out.println("Ship hit!");
             }
 
+            System.out.println("Player " + turn % 2 + ": " + players.get(turn % 2).toString());
             System.out.println("Player " + turn % 2 + ": " + players.get(turn % 2).getScore());
             turn++;
         }
