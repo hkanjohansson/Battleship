@@ -13,8 +13,18 @@ public class PlayerAI extends Player{
     }
 
     @Override
+    public void setScore(int s) {
+        score += s;
+    }
+
+    @Override
     public int getTotalHealth() {
         return 0;
+    }
+
+    @Override
+    public void setTotalHealth() {
+
     }
 
     @Override
@@ -23,13 +33,24 @@ public class PlayerAI extends Player{
     }
 
     @Override
+    public int[][] getShipsArea() {
+        return new int[0][];
+    }
+
+    @Override
+    public int[][] getFireArea() {
+        return new int[0][];
+    }
+
+    @Override
     public void placeShip() {
 
     }
 
     @Override
-    public void fireWeapon() {
+    public int[] fireWeapon() {
 
+        return null;
     }
 
     @Override

@@ -20,6 +20,7 @@ public class PlayerHuman extends Player {
         fireArea = new int[WIDTH][HEIGHT];
 
         totalHealth = 0;
+        score = 0;
 
     }
 
@@ -30,13 +31,33 @@ public class PlayerHuman extends Player {
     }
 
     @Override
+    public void setScore(int s) {
+        score++;
+    }
+
+    @Override
     public int getTotalHealth() {
         return totalHealth;
     }
 
     @Override
+    public void setTotalHealth() {
+        totalHealth--;
+    }
+
+    @Override
     public List<Ship> getShips() {
         return ships;
+    }
+
+    @Override
+    public int[][] getShipsArea() {
+        return shipsArea;
+    }
+
+    @Override
+    public int[][] getFireArea() {
+        return fireArea;
     }
 
 
@@ -161,14 +182,19 @@ public class PlayerHuman extends Player {
       Choose where to fire. If outside the area or where there already has been fired, then try again.
      */
     @Override
-    public void fireWeapon() {
+    public int[] fireWeapon() {
         Scanner in = new Scanner(System.in);
         boolean fired = false;
 
+        int x = 0;
+        int y = 0;
+
         while (!fired) {
             System.out.println("Provide coordinates where you want to fire: ");
-            int x = in.nextInt();
-            int y = in.nextInt();
+            System.out.println("X-coordinate: ");
+            x = in.nextInt();
+            System.out.println("Y-coordinate: ");
+            y = in.nextInt();
 
             if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT || fireArea[y][x] != 0) {
                 System.out.println("Try shooting within the area at the next try.");
@@ -178,8 +204,9 @@ public class PlayerHuman extends Player {
             }
         }
 
-        System.out.println(toString());
+        //System.out.println(toString());
 
+        return new int[]{x, y};
     }
 
     /*
@@ -208,7 +235,9 @@ public class PlayerHuman extends Player {
         for (int i = 0; i < WIDTH; i++) {
             fireAreaString.append("{ ");
             for (int j = 0; j < HEIGHT; j++) {
-                if (fireArea[i][j] != 0) {
+                if (fireArea[i][j] == 2) {
+                    fireAreaString.append("V ");
+                } else if (fireArea[i][j] == 1) {
                     fireAreaString.append("X ");
                 } else {
                     fireAreaString.append(fireArea[i][j]).append(" ");
