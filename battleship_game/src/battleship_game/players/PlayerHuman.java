@@ -32,7 +32,7 @@ public class PlayerHuman extends Player {
 
     @Override
     public void setScore(int s) {
-        score++;
+        score += s;
     }
 
     @Override

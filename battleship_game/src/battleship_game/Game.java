@@ -42,12 +42,13 @@ public class Game implements GameInterface {
 
     /*
     TODO - Clean up code
+    TODO - Keep all the scores in a toString method
      */
+
     @Override
     public void playGame() {
         Player p1 = players.get(0);
         Player p2 = players.get(1);
-
 
         p1.placeShip();
         p2.placeShip();
@@ -61,16 +62,15 @@ public class Game implements GameInterface {
         System.out.println(p2Health);
 
 
-        while (p1Health > 0 && p2Health > 0) {
+        while (players.get(0).getTotalHealth() > 0 && players.get(1).getTotalHealth() > 0) {
             int[] shot = players.get(turn % 2).fireWeapon();
-
             int[][] weaponsFired = players.get(turn % 2).getFireArea();
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
 
             if (shipsPlacement[shot[1]][shot[0]] != 0) {
                 players.get(turn % 2).setScore(1);
                 players.get((turn + 1) % 2).setTotalHealth();
-                weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit
+                weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
                 System.out.println("Ship hit!");
             }
 
@@ -80,7 +80,7 @@ public class Game implements GameInterface {
         }
 
         // Player 2 will have a chance to even out the score.
-        if (turn % 2 == 0) {
+        if (turn % 2 == 1) {
             int[] shot = players.get(turn + 1 % 2).fireWeapon();
             int[][] shipsPlacement = players.get(turn % 2).getShipsArea();
 
@@ -92,10 +92,13 @@ public class Game implements GameInterface {
         }
 
         for (Player p : players) {
-            if (p.getTotalHealth() > 0 ) {
-                p.setScore(p.getTotalHealth());
+            if (p.getTotalHealth() > 0) {
+                p.setScore(p.getTotalHealth()); // When the game has ended the winning player receives bonus
+                                                // points according to the totalHealth left.
             }
+            System.out.println("This is the final score: " + p.getScore());
         }
+
 
     }
 
