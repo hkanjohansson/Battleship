@@ -120,10 +120,10 @@ public class PlayerHuman extends Player {
                     if (available) {
                         for (int i = 0; i < shipSize; i++) {
                             shipsArea[yStart][xStart + i] = 1;
-                            System.out.println(shipsArea[yStart][xStart]);
-                            totalHealth += shipToPlace.getSize();
-                            placed = true;
                         }
+
+                        totalHealth += shipToPlace.getSize();
+                        placed = true;
                     }
 
 
@@ -140,10 +140,11 @@ public class PlayerHuman extends Player {
                     if (available) {
                         for (int i = 0; i < shipSize; i++) {
                             shipsArea[yStart + i][xStart] = 1;
-                            System.out.println(shipsArea[xStart][yStart]);
-                            totalHealth += shipToPlace.getSize();
-                            placed = true;
+
                         }
+
+                        placed = true;
+                        totalHealth += shipToPlace.getSize();
                     }
 
                 } else {
@@ -197,7 +198,7 @@ public class PlayerHuman extends Player {
                 if (shipsArea[i][j] != 0) {
                     shipAreaString.append("X ");
                 } else {
-                    shipAreaString.append(shipsArea[i][j] + " ");
+                    shipAreaString.append(shipsArea[i][j]).append(" ");
                 }
 
             }
@@ -210,7 +211,7 @@ public class PlayerHuman extends Player {
                 if (fireArea[i][j] != 0) {
                     fireAreaString.append("X ");
                 } else {
-                    fireAreaString.append(fireArea[i][j] + " ");
+                    fireAreaString.append(fireArea[i][j]).append(" ");
                 }
 
             }
@@ -218,6 +219,7 @@ public class PlayerHuman extends Player {
             fireAreaString.append("}\n");
         }
 
-        return shipAreaString.toString() + " " + fireAreaString.toString();
+        return shipAreaString.append(fireAreaString.toString()).toString();
+
     }
 }

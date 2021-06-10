@@ -16,12 +16,10 @@ public class GameMain {
         System.out.println(temp.toString());
         System.out.println(carrier.toString());
 
-        p.placeShip(carrier);
+        p.placeShip();
+        p.fireWeapon();
 
-        for (int i = 0; i < carrier.getShipCoordinates().size(); i++) {
-            System.out.println(carrier.getShipCoordinates().get(i)[1]);
-
-        }
+        System.out.println("This is the total health: " + p.getTotalHealth());
 
     }
 }

@@ -3,11 +3,10 @@ package battleship_game.ships;
 import java.util.ArrayList;
 
 /*
-Placement of ships takes place in the Game class
+Placement of ships takes place in the Player class
 
-TODO - Place the ships -> Two cases: x +- size or y +- size. If outside the gameplan: Try again or exception.
 TODO - What will happen when a ship reaches 0 health?
-TODO -
+
  */
 public abstract class Ship {
     protected int xStart;
