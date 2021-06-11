@@ -9,6 +9,8 @@ import java.util.Random;
 public class PlayerAI extends Player {
 
     boolean hasHit;
+    int[] currentHit;
+    int misses;
 
     public PlayerAI() {
         ships = new ArrayList<>();
@@ -25,6 +27,8 @@ public class PlayerAI extends Player {
         score = 0;
 
         hasHit = false;
+        currentHit = new int[2];
+        misses = 0;
 
     }
 
@@ -64,7 +68,33 @@ public class PlayerAI extends Player {
         return fireArea;
     }
 
+    public void setHasHit(boolean hit) {
+        hasHit = hit;
+    }
 
+    public boolean getHasHit() {
+        return hasHit;
+    }
+
+    public void setCurrentHit(int[] shot) {
+        currentHit = shot;
+    }
+
+    public int[] getCurrentHit() {
+        return currentHit;
+    }
+
+    public void setMisses(int n) {
+        if (n == 0) {
+            misses = 0;
+        } else {
+            misses += n;
+        }
+    }
+
+    public int getMisses() {
+        return misses;
+    }
     /*
       Before a ship is placed it is removed from the list. The placement will
       go on until the ships list is empty.
@@ -224,13 +254,7 @@ public class PlayerAI extends Player {
         return new int[]{x, y};
     }
 
-    public void setHasHit(boolean hit) {
-        hasHit = hit;
-    }
 
-    public boolean getHasHit() {
-        return hasHit;
-    }
 
     /*
     Print of the areas where ship has been placed and weapons has been fired.
