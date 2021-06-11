@@ -204,8 +204,6 @@ public class PlayerHuman extends Player {
             }
         }
 
-        //System.out.println(toString());
-
         return new int[]{x, y};
     }
 
@@ -214,41 +212,40 @@ public class PlayerHuman extends Player {
      */
     @Override
     public String toString() {
-        StringBuilder shipAreaString = new StringBuilder();
-        StringBuilder fireAreaString = new StringBuilder();
 
-        shipAreaString.append("Ships:\n");
-        fireAreaString.append("Fire:\n");
-        for (int i = 0; i < WIDTH; i++) {
-            shipAreaString.append("{ ");
-            for (int j = 0; j < HEIGHT; j++) {
+        StringBuilder playerBuild = new StringBuilder();
+
+        for (int i = 0; i < HEIGHT; i++) {
+
+            playerBuild.append("{ ");
+            for (int j = 0; j < WIDTH; j++) {
                 if (shipsArea[i][j] != 0) {
-                    shipAreaString.append("X ");
+
+                    playerBuild.append("X ");
                 } else {
-                    shipAreaString.append(shipsArea[i][j]).append(" ");
+
+                    playerBuild.append(shipsArea[i][j]).append(" ");
                 }
 
             }
-            shipAreaString.append("}\n");
-        }
 
-        for (int i = 0; i < WIDTH; i++) {
-            fireAreaString.append("{ ");
-            for (int j = 0; j < HEIGHT; j++) {
+            playerBuild.append("} | ");
+
+            playerBuild.append("{ ");
+            for (int j = 0; j < WIDTH; j++) {
                 if (fireArea[i][j] == 2) {
-                    fireAreaString.append("V ");
+                    playerBuild.append("V ");
                 } else if (fireArea[i][j] == 1) {
-                    fireAreaString.append("X ");
+                    playerBuild.append("X ");
                 } else {
-                    fireAreaString.append(fireArea[i][j]).append(" ");
+                    playerBuild.append(fireArea[i][j]).append(" ");
                 }
-
             }
 
-            fireAreaString.append("}\n");
+            playerBuild.append("}\n");
+
         }
 
-        return shipAreaString.append(fireAreaString.toString()).toString();
-
+        return playerBuild.toString();
     }
 }
