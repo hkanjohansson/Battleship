@@ -5,10 +5,10 @@ import battleship_game.ships.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class PlayerAI extends Player {
 
+    boolean hasHit;
 
     public PlayerAI() {
         ships = new ArrayList<>();
@@ -23,6 +23,8 @@ public class PlayerAI extends Player {
 
         totalHealth = 0;
         score = 0;
+
+        hasHit = false;
 
     }
 
@@ -198,7 +200,7 @@ public class PlayerAI extends Player {
      */
     @Override
     public int[] fireWeapon() {
-        Scanner in = new Scanner(System.in);
+        Random rand = new Random();
         boolean fired = false;
 
         int x = 0;
@@ -207,9 +209,9 @@ public class PlayerAI extends Player {
         while (!fired) {
             System.out.println("Provide coordinates where you want to fire: ");
             System.out.println("X-coordinate: ");
-            x = in.nextInt();
+            x = rand.nextInt(WIDTH);
             System.out.println("Y-coordinate: ");
-            y = in.nextInt();
+            y = rand.nextInt(HEIGHT);
 
             if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT || fireArea[y][x] != 0) {
                 System.out.println("Try shooting within the area at the next try.");
@@ -220,6 +222,14 @@ public class PlayerAI extends Player {
         }
 
         return new int[]{x, y};
+    }
+
+    public void setHasHit(boolean hit) {
+        hasHit = hit;
+    }
+
+    public boolean getHasHit() {
+        return hasHit;
     }
 
     /*
