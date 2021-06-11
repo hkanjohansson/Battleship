@@ -84,7 +84,6 @@ public class Destroyer extends Ship{
 
     }
 
-    // TODO - Print coordinates of ship
     @Override
     public String toString() {
         return "This is a destroyer. The destroyer is of size: " + size + ".";

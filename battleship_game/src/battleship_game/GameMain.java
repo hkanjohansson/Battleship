@@ -9,7 +9,7 @@ import battleship_game.ships.Ship;
 public class GameMain {
 
     public static void main (String[] args)  {
-        Game temp = new Game(false);
+        Game temp = new Game(true);
 
         temp.playGame();
 

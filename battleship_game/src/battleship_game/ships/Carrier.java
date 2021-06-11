@@ -84,7 +84,6 @@ public class Carrier extends Ship{
 
     }
 
-    // TODO - Print coordinates of ship
     @Override
     public String toString() {
         return "This is a carrier. The carrier is of size: " + size + ".";

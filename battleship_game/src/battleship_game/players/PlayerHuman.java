@@ -81,7 +81,7 @@ public class PlayerHuman extends Player {
             boolean placed = false;
 
             while (!placed) {
-                System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
+                System.out.println(shipToPlace.toString() + " Choose your start coordinates: ");
                 int xStart = in.nextInt();
                 int yStart = in.nextInt();
 

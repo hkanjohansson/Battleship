@@ -84,7 +84,6 @@ public class Battleship extends Ship{
 
     }
 
-    // TODO - Print coordinates of ship
     @Override
     public String toString() {
         return "This is a battleship. The battleship is of size: " + size + ".";
