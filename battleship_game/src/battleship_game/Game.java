@@ -6,6 +6,7 @@ import battleship_game.players.PlayerHuman;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Game implements GameInterface {
 
@@ -47,39 +48,89 @@ public class Game implements GameInterface {
 
     @Override
     public void playGame() {
-        Player p1 = players.get(0);
-        Player p2 = players.get(1);
 
-        p1.placeShip();
-        p2.placeShip();
+        players.get(0).placeShip();
+        players.get(1).placeShip();
 
-        int p1Health = p1.getTotalHealth();
-        int p2Health = p2.getTotalHealth();
 
+        hits();
+
+        for (Player p : players) {
+            if (p.getTotalHealth() > 0) {
+                p.setScore(p.getTotalHealth()); // When the game has ended the winning player receives bonus
+                // points according to the totalHealth left.
+            }
+
+            System.out.println("This is the final score: " + p.getScore());
+        }
+
+    }
+
+    @Override
+    public void hits() {
         int turn = 0;
-
-        System.out.println(p1Health);
-        System.out.println(p2Health);
-
+        Random rand = new Random();
 
         while (players.get(0).getTotalHealth() > 0 && players.get(1).getTotalHealth() > 0) {
             int[] shot = players.get(turn % 2).fireWeapon();
             int[][] weaponsFired = players.get(turn % 2).getFireArea();
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
 
-            if (shipsPlacement[shot[1]][shot[0]] != 0) {
-                players.get(turn % 2).setScore(1);
-                players.get((turn + 1) % 2).setTotalHealth();
-                weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
-                System.out.println("Ship hit!");
+            if (players.get(turn % 2) instanceof PlayerAI) {
+                /*
+                Player shoots ->
+                    If hit:
+                        Next shot is in one of four random directions.
+                        if next hit and direction < 10 && direction > 0
+                            Shoot again
+
+                        else
+                            opposite direction
+
+                        If two shot misses -> ship has sunk
+
+                    else:
+                        Randomly choose of the three other directions
+
+                    #hits variable that resets when two misses has occurred
+
+                 */
+
+                int[] directions = {shot[0]--, shot[1]--, shot[0]++, shot[1]++};
+                int misses = 0;
+
+                if (((PlayerAI) players.get(turn % 2)).getHasHit()) {
+
+
+                } else if (shipsPlacement[shot[1]][shot[0]] != 0) {
+                    ((PlayerAI) players.get(turn % 2)).setHasHit(true);
+                    weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
+                    System.out.println("Ship hit!");
+
+
+
+                }
+
+            } else {
+
+                if (shipsPlacement[shot[1]][shot[0]] != 0) {
+                    players.get(turn % 2).setScore(1);
+                    players.get((turn + 1) % 2).setTotalHealth();
+                    weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
+                    System.out.println("Ship hit!");
+                }
+
+                System.out.println("Player " + turn % 2 + ": \n" + players.get(turn % 2).toString());
+                System.out.println("Player " + turn % 2 + ": " + players.get(turn % 2).getScore());
+
             }
 
-            System.out.println("Player " + turn % 2 + ": " + players.get(turn % 2).toString());
-            System.out.println("Player " + turn % 2 + ": " + players.get(turn % 2).getScore());
             turn++;
+
         }
 
         // Player 2 will have a chance to even out the score.
+        // TODO - Add case for the AI player here
         if (turn % 2 == 1) {
             int[] shot = players.get(turn + 1 % 2).fireWeapon();
             int[][] shipsPlacement = players.get(turn % 2).getShipsArea();
@@ -90,43 +141,10 @@ public class Game implements GameInterface {
                 System.out.println("Player " + turn + 1 % 2 + ": " + players.get(turn + 1 % 2).getScore());
             }
         }
-
-        for (Player p : players) {
-            if (p.getTotalHealth() > 0) {
-                p.setScore(p.getTotalHealth()); // When the game has ended the winning player receives bonus
-                                                // points according to the totalHealth left.
-            }
-            System.out.println("This is the final score: " + p.getScore());
-        }
-
-
-    }
-
-    @Override
-    public void hits() {
-
-        int[][] temp = players.get(0).getFireArea();
-
-        players.get(0).fireWeapon();
-        for (int i = 0; i < players.get(0).getFireArea().length; i++) {
-            for (int j = 0; j < players.get(0).getFireArea().length; j++) {
-
-
-                /*
-                TODO - If p1 fire area[i][j] corresponds to p2 ship area[i][j] -> hit
-                        and vice versa.
-
-                TODO - Increase score
-
-                TODO - What type of ship
-                 */
-            }
-
-        }
     }
 
     /*
-    Scoreboard representation
+    TODO - Scoreboard representation
      */
     @Override
     public String toString() {
