@@ -74,37 +74,42 @@ public class PlayerHuman extends Player {
      */
     @Override
     public void placeShip() {
-
         Scanner in = new Scanner(System.in);
 
         if (ships.size() == NUMBER_OF_SHIPS) {
             Ship shipToPlace = ships.remove(0);
+            boolean placed = false;
 
-            System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
-            int xStart = in.nextInt();
-            int yStart = in.nextInt();
+            while (!placed) {
+                System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
+                int xStart = in.nextInt();
+                int yStart = in.nextInt();
 
-            System.out.println("Do you want to place horizontal? Then input an integer greater than or equal to 0. " +
-                    "If not, provide an integer smaller than 0 to proceed to vertical");
+                System.out.println("Do you want to place horizontal? Then input an integer greater than or equal to 0. " +
+                        "If not, provide an integer smaller than 0 to proceed to vertical");
 
-            int horizontal = in.nextInt();
-            int shipSize = shipToPlace.getSize();
+                int horizontal = in.nextInt();
+                int shipSize = shipToPlace.getSize();
+                if (horizontal >= 0 && xStart + shipSize < 10 && yStart < 10) {
+                    for (int i = 0; i < shipSize; i++) {
+                        shipsArea[yStart][xStart + i] = 1;
+                        System.out.println(shipsArea[yStart][xStart]);
+                        placed = true;
+                    }
 
-            if (horizontal >= 0 && shipToPlace.getXCoordinate()[0] + shipSize <= 10 && yStart < 10) {
-                for (int i = 0; i < shipSize; i++) {
-                    shipsArea[yStart][xStart + i] = 1;
-                    System.out.println(shipsArea[yStart][xStart]);
+                } else if (horizontal < 0 && yStart + shipSize < 10 && xStart < 10) {
+                    for (int i = 0; i < shipSize; i++) {
+                        shipsArea[yStart + i][xStart] = 1;
+                        System.out.println(shipsArea[xStart][yStart]);
+                        placed = true;
+                    }
+                } else {
+                    System.out.println("Try placing your ship within the area.");
                 }
 
-            } else if (horizontal < 0 && shipToPlace.getYCoordinate()[0] + shipSize <= 10 && xStart < 10) {
-                for (int i = 0; i < shipSize; i++) {
-                    shipsArea[yStart + i][xStart] = 1;
-                    System.out.println(shipsArea[xStart][yStart]);
-                }
             }
 
             totalHealth += shipToPlace.getSize();
-
         }
 
         while (ships.size() < NUMBER_OF_SHIPS && ships.size() > 0) {
@@ -114,7 +119,6 @@ public class PlayerHuman extends Player {
             boolean placed = false;
 
             while (!placed) {
-
                 boolean available = true;
 
                 System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
@@ -129,7 +133,7 @@ public class PlayerHuman extends Player {
                 int horizontal = in.nextInt();
                 int shipSize = shipToPlace.getSize();
 
-                if (horizontal >= 0 && shipToPlace.getXCoordinate()[0] + shipSize <= 10 && yStart < 10) {
+                if (horizontal >= 0 && xStart + shipSize < 10 && yStart < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         if (shipsArea[yStart][xStart + i] != 0) {
                             available = false;
@@ -148,8 +152,7 @@ public class PlayerHuman extends Player {
                     }
 
 
-                } else if (horizontal < 0 && shipToPlace.getYCoordinate()[0] + shipSize <= 10 && xStart < 10) {
-
+                } else if (horizontal < 0 && yStart + shipSize < 10 && xStart < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         if (shipsArea[yStart + i][xStart] != 0) {
                             available = false;
@@ -161,7 +164,6 @@ public class PlayerHuman extends Player {
                     if (available) {
                         for (int i = 0; i < shipSize; i++) {
                             shipsArea[yStart + i][xStart] = 1;
-
                         }
 
                         placed = true;
@@ -230,8 +232,8 @@ public class PlayerHuman extends Player {
             }
 
             playerBuild.append("} | ");
-
             playerBuild.append("{ ");
+
             for (int j = 0; j < WIDTH; j++) {
                 if (fireArea[i][j] == 2) {
                     playerBuild.append("V ");
@@ -243,7 +245,6 @@ public class PlayerHuman extends Player {
             }
 
             playerBuild.append("}\n");
-
         }
 
         return playerBuild.toString();
