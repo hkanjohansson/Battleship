@@ -326,7 +326,7 @@ public class PlayerAI extends Player {
                     if (nextHit[0] < 0) {
                         nextHit[0] += 2;
                         hitDirec = 1;
-                        //misses++;
+                        misses++;
                     }
                     break;
                 case 1:
@@ -336,7 +336,7 @@ public class PlayerAI extends Player {
                     if (nextHit[0] >= 10) {
                         nextHit[0] -= 2;
                         hitDirec = 0;
-                        //misses++;
+                        misses++;
                     }
                     break;
                 case 2:
@@ -346,7 +346,7 @@ public class PlayerAI extends Player {
                     if (nextHit[1] < 0) {
                         nextHit[1] += 2;
                         hitDirec = 3;
-                        //misses++;
+                        misses++;
                     }
                     break;
                 case 3:
@@ -356,7 +356,7 @@ public class PlayerAI extends Player {
                     if (nextHit[1] >= 10) {
                         nextHit[1] -= 2;
                         hitDirec = 2;
-                        //misses++;
+                        misses++;
                     }
                     break;
             }

@@ -80,21 +80,27 @@ public class Game implements GameInterface {
             // TODO - Fix error when AI indicates a hit when it is a miss
             if (players.get(turn % 2) instanceof PlayerAI && shipsPlacement[shot[1]][shot[0]] != 0) {
                 ((PlayerAI) players.get(turn % 2)).setHasHit();
-                ((PlayerAI) players.get(turn % 2)).setInitialHit(shot);
+
+                if (((PlayerAI) players.get(turn % 2)).getHasHit() >= 1) {
+                    ((PlayerAI) players.get(turn % 2)).setNextHit(shot);
+                } else {
+                    ((PlayerAI) players.get(turn % 2)).setInitialHit(shot);
+                }
+
                 players.get(turn % 2).setScore(1);
                 players.get((turn + 1) % 2).setTotalHealth();
                 weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
                 System.out.println("Ship hit!");
 
             }
-            /*
+
             else if (players.get(turn % 2) instanceof PlayerAI &&
                     ((PlayerAI) players.get(turn % 2)).getHasHit() > 1 ) {
 
-                ((PlayerAI) players.get(turn % 2)).setMisses(1);
+                ((PlayerAI) players.get(turn % 2)).setMisses(1); // TODO - Should this be included?
 
             }
-             */
+
             else if (players.get(turn % 2) instanceof PlayerHuman && shipsPlacement[shot[1]][shot[0]] != 0) {
 
                 players.get(turn % 2).setScore(1);
