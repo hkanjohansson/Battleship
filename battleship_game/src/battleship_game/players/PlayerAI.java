@@ -8,7 +8,8 @@ import java.util.Random;
 
 public class PlayerAI extends Player {
 
-    boolean hasHit;
+    boolean[] missedDirections;
+    int hasHit;
     int[] currentHit;
     int misses;
 
@@ -26,7 +27,8 @@ public class PlayerAI extends Player {
         totalHealth = 0;
         score = 0;
 
-        hasHit = false;
+        missedDirections = new boolean[4];
+        hasHit = 0;
         currentHit = new int[2];
         misses = 0;
 
@@ -68,11 +70,19 @@ public class PlayerAI extends Player {
         return fireArea;
     }
 
-    public void setHasHit(boolean hit) {
-        hasHit = hit;
+    public void setMissedDirections(int n) {
+        missedDirections[n] = true;
     }
 
-    public boolean getHasHit() {
+    public boolean[] getMissedDirections() {
+        return missedDirections;
+    }
+
+    public void setHasHit() {
+        hasHit++;
+    }
+
+    public int getHasHit() {
         return hasHit;
     }
 
@@ -83,6 +93,8 @@ public class PlayerAI extends Player {
     public int[] getCurrentHit() {
         return currentHit;
     }
+
+
 
     public void setMisses(int n) {
         if (n == 0) {
@@ -95,6 +107,7 @@ public class PlayerAI extends Player {
     public int getMisses() {
         return misses;
     }
+
     /*
       Before a ship is placed it is removed from the list. The placement will
       go on until the ships list is empty.
@@ -131,14 +144,14 @@ public class PlayerAI extends Player {
                 int horizontal = rand.nextInt(2);
                 int shipSize = shipToPlace.getSize();
 
-                if (horizontal == 0 && xStart + shipSize < 10 && yStart < 10) {
+                if (horizontal == 0 && xStart + shipSize < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         shipsArea[yStart][xStart + i] = 1;
                         System.out.println(shipsArea[yStart][xStart]);
                         placed = true;
                     }
 
-                } else if (horizontal != 0 && yStart + shipSize < 10 && xStart < 10) {
+                } else if (horizontal != 0 && yStart + shipSize < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         shipsArea[yStart + i][xStart] = 1;
                         System.out.println(shipsArea[xStart][yStart]);
@@ -176,7 +189,7 @@ public class PlayerAI extends Player {
                 int horizontal = rand.nextInt(2);
                 int shipSize = shipToPlace.getSize();
 
-                if (horizontal == 0 && xStart + shipSize < 10 && yStart < 10) {
+                if (horizontal == 0 && xStart + shipSize < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         if (shipsArea[yStart][xStart + i] != 0) {
                             available = false;
@@ -195,7 +208,7 @@ public class PlayerAI extends Player {
                     }
 
 
-                } else if (horizontal != 0 && yStart + shipSize < 10 && xStart < 10) {
+                } else if (horizontal != 0 && yStart + shipSize < 10) {
 
                     for (int i = 0; i < shipSize; i++) {
                         if (shipsArea[yStart + i][xStart] != 0) {
@@ -238,13 +251,14 @@ public class PlayerAI extends Player {
 
         while (!fired) {
             System.out.println("Provide coordinates where you want to fire: ");
-            System.out.println("X-coordinate: ");
             x = rand.nextInt(WIDTH);
-            System.out.println("Y-coordinate: ");
+            System.out.println("X-coordinate: " + x);
             y = rand.nextInt(HEIGHT);
+            System.out.println("Y-coordinate: " + y);
 
-            if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT || fireArea[y][x] != 0) {
-                System.out.println("Try shooting within the area at the next try.");
+
+            if (fireArea[y][x] != 0) {
+                System.out.println("Try shooting where there has not yet been shot.");
             } else {
                 fireArea[y][x] = 1;
                 fired = true;
