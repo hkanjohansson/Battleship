@@ -78,101 +78,25 @@ public class Game implements GameInterface {
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
 
             // TODO - Fix error when AI indicates a hit when it is a miss
-            if (players.get(turn % 2) instanceof PlayerAI) {
+            if (players.get(turn % 2) instanceof PlayerAI && shipsPlacement[shot[1]][shot[0]] != 0) {
+                ((PlayerAI) players.get(turn % 2)).setHasHit();
+                ((PlayerAI) players.get(turn % 2)).setInitialHit(shot);
+                players.get(turn % 2).setScore(1);
+                players.get((turn + 1) % 2).setTotalHealth();
+                weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
+                System.out.println("Ship hit!");
 
-                if (((PlayerAI) players.get(turn % 2)).getHasHit() >= 1) {
-                    int[] currentHit = ((PlayerAI) players.get(turn % 2)).getCurrentHit();
-                    shot = currentHit;
-                    int chooseDirec = rand.nextInt(4); //
+            }
+            /*
+            else if (players.get(turn % 2) instanceof PlayerAI &&
+                    ((PlayerAI) players.get(turn % 2)).getHasHit() > 1 ) {
 
-                    System.out.println("This is the direction: " + chooseDirec);
-                    while (((PlayerAI) players.get(turn % 2)).getMissedDirections()[chooseDirec]) {
-                        chooseDirec = rand.nextInt(4);
-                        // If hit in one of the four directions, set either the vertical or horizontal
-                        // indices to true to indicate forbidden directions.
+                ((PlayerAI) players.get(turn % 2)).setMisses(1);
 
-                        // TODO - Fix error with infinite loop
-                        //System.out.println("Hejsan " + chooseDirec);
-                    }
+            }
+             */
+            else if (players.get(turn % 2) instanceof PlayerHuman && shipsPlacement[shot[1]][shot[0]] != 0) {
 
-                    switch (chooseDirec) {
-                        
-                        case 0:
-                            System.out.println("Current hit 0: " + currentHit[0]);
-                            currentHit[0]--;
-                            if (currentHit[0] > 0 && shipsPlacement[currentHit[1]][currentHit[0]] != 0) {
-                                ((PlayerAI) players.get(turn % 2)).setHasHit();
-                                players.get(turn % 2).setScore(1);
-                                players.get((turn + 1) % 2).setTotalHealth();
-                                weaponsFired[currentHit[1]][currentHit[0]] = 2; // To indicate a hit for representation in toString()
-                                System.out.println("Ship hit!");
-                            } else {
-                                currentHit[1] = ((PlayerAI) players.get(turn % 2)).getCurrentHit()[1]; // Reset to
-                                // initial hit
-                                ((PlayerAI) players.get(turn % 2)).setMissedDirections(0, false);
-                            }
-                            break;
-                        case 1:
-                            System.out.println("Current hit 1: " + currentHit[1]);
-                            currentHit[1]--;
-                            if (currentHit[1] > 0 && shipsPlacement[currentHit[1]][currentHit[0]] != 0) {
-                                ((PlayerAI) players.get(turn % 2)).setHasHit();
-                                players.get(turn % 2).setScore(1);
-                                players.get((turn + 1) % 2).setTotalHealth();
-                                weaponsFired[currentHit[1]][currentHit[0]] = 2; // To indicate a hit for representation in toString()
-                                System.out.println("Ship hit!");
-                            } else {
-                                currentHit[0] = ((PlayerAI) players.get(turn % 2)).getCurrentHit()[0]; // Reset to
-                                // initial hit
-                                ((PlayerAI) players.get(turn % 2)).setMissedDirections(1, false);
-                            }
-                            break;
-                        case 2:
-                            System.out.println("Current hit 0: " + currentHit[0]);
-                            currentHit[0]++;
-                            if (currentHit[0] < 10 && shipsPlacement[currentHit[1]][currentHit[0]] != 0) {
-                                ((PlayerAI) players.get(turn % 2)).setHasHit();
-                                players.get(turn % 2).setScore(1);
-                                players.get((turn + 1) % 2).setTotalHealth();
-                                weaponsFired[currentHit[1]][currentHit[0]] = 2; // To indicate a hit for representation in toString()
-                                System.out.println("Ship hit!");
-                            } else {
-                                currentHit[1] = ((PlayerAI) players.get(turn % 2)).getCurrentHit()[1]; // Reset to
-                                // initial hit
-                                ((PlayerAI) players.get(turn % 2)).setMissedDirections(2, false);
-                            }
-                            break;
-                        case 3:
-                            System.out.println("Current hit 1: " + currentHit[1]);
-                            currentHit[1]++;
-                            if (currentHit[1] < 10 && shipsPlacement[currentHit[1]][currentHit[0]] != 0) {
-                                ((PlayerAI) players.get(turn % 2)).setHasHit();
-                                players.get(turn % 2).setScore(1);
-                                players.get((turn + 1) % 2).setTotalHealth();
-                                weaponsFired[currentHit[1]][currentHit[0]] = 2; // To indicate a hit for representation in toString()
-                                System.out.println("Ship hit!");
-                            } else {
-                                currentHit[0] = ((PlayerAI) players.get(turn % 2)).getCurrentHit()[0]; // Reset to
-                                // initial hit
-                                ((PlayerAI) players.get(turn % 2)).setMissedDirections(3, false);
-                            }
-                            break;
-                    }
-
-                } else if (shipsPlacement[shot[1]][shot[0]] != 0) {
-                    ((PlayerAI) players.get(turn % 2)).setHasHit();
-                    ((PlayerAI) players.get(turn % 2)).setCurrentHit(shot);
-                    ((PlayerAI) players.get(turn % 2)).setMissedDirections(0, true);
-                    players.get(turn % 2).setScore(1);
-                    players.get((turn + 1) % 2).setTotalHealth();
-                    weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
-                    System.out.println("Ship hit!");
-
-                } else {
-                    ((PlayerAI) players.get(turn % 2)).setMisses(1); // TODO - Should not be set if hits is less than 2
-                }
-
-            } else if (shipsPlacement[shot[1]][shot[0]] != 0) {
                 players.get(turn % 2).setScore(1);
                 players.get((turn + 1) % 2).setTotalHealth();
                 weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
