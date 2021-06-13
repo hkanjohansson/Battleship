@@ -1,21 +1,29 @@
 package battleship_game;
 
-import battleship_game.players.Player;
-import battleship_game.players.PlayerHuman;
-import battleship_game.ships.Carrier;
-import battleship_game.ships.Ship;
-
+import java.util.Scanner;
 
 public class GameMain {
 
     public static void main (String[] args)  {
-        Game temp = new Game(true);
+        Scanner in = new Scanner(System.in);
 
-        temp.playGame();
+        System.out.println("Input something to start the game for two AI players: ");
+        in.next();
 
-        /*
-        TODO - Test cases
-     */
+        for (int i = 0; i < 100; i++) {
+            Game battleShipsTwoAI = new Game(true, true);
+            battleShipsTwoAI.playGame();
+        }
+
+        System.out.println("Input something to start the game for one human and one AI player: ");
+        in.next();
+        Game battleShipsOneAI = new Game(false, true);
+        battleShipsOneAI.playGame();
+
+        System.out.println("Input something to start the game for two human players: ");
+        in.next();
+        Game battleShipsNoAI = new Game(false, true);
+        battleShipsNoAI.playGame();
 
     }
 }

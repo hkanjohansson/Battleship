@@ -3,7 +3,6 @@ package battleship_game.players;
 import battleship_game.ships.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 //TODO - Generate javadoc?
@@ -34,7 +33,6 @@ public class PlayerAI extends Player {
         totalHealth = 0;
         score = 0;
 
-
         hitDirec = 0;
         hasHit = 0;
         initialHit = new int[2];
@@ -62,11 +60,6 @@ public class PlayerAI extends Player {
     @Override
     public void setTotalHealth() {
         totalHealth--;
-    }
-
-    @Override
-    public List<Ship> getShips() {
-        return ships;
     }
 
     @Override
@@ -128,7 +121,6 @@ public class PlayerAI extends Player {
      */
     @Override
     public void placeShip() {
-
         Random rand = new Random();
 
         if (ships.size() == NUMBER_OF_SHIPS) {
@@ -160,8 +152,6 @@ public class PlayerAI extends Player {
                         placed = true;
                     }
                 }
-
-
             }
 
             totalHealth += shipToPlace.getSize();
@@ -249,13 +239,11 @@ public class PlayerAI extends Player {
         boolean fired = false;
 
         int x = nextHit[0];
-        int y = nextHit[1]; // TODO - This is the problem?
+        int y = nextHit[1];
 
         if (misses >= 2) {
             hasHit = 0;
             misses = 0;
-
-            System.out.println("Does it even enter here?");
         }
 
         while (!fired) {
@@ -270,7 +258,7 @@ public class PlayerAI extends Player {
                 y = nextHit[1];
                 System.out.println("Y-coordinate: " + y);
 
-                if (fireArea[y][x] != 0) {
+                if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT || fireArea[y][x] != 0) {
                     System.out.println("Try shooting where there has not yet been shot.");
                     misses++;
                 } else {
@@ -352,7 +340,6 @@ public class PlayerAI extends Player {
             }
 
         } else if (hasHit > 1) { // Continue in the same direction until a miss occur
-
             switch (hitDirec) {
                 case 0:
                     nextHit[0]--;
@@ -383,7 +370,7 @@ public class PlayerAI extends Player {
                     break;
                 case 3:
                     nextHit[1]++;
-                    if (nextHit[0] < 0 || fireArea[nextHit[1]][nextHit[0]] != 0) {
+                    if (nextHit[1] >= 10 || fireArea[nextHit[1]][nextHit[0]] != 0) {
                         nextHit = initialHit;
                         nextHit[1]--;
                         hitDirec = 2;
@@ -391,11 +378,9 @@ public class PlayerAI extends Player {
                     }
                     break;
             }
-
         }
 
         this.nextHit = nextHit;
-
         return this.nextHit;
     }
 
@@ -404,7 +389,6 @@ public class PlayerAI extends Player {
      */
     @Override
     public String toString() {
-
         StringBuilder playerBuild = new StringBuilder();
 
         for (int i = 0; i < HEIGHT; i++) {
@@ -419,6 +403,7 @@ public class PlayerAI extends Player {
 
             playerBuild.append("} | ");
             playerBuild.append("{ ");
+
             for (int j = 0; j < WIDTH; j++) {
                 if (fireArea[i][j] == 2) {
                     playerBuild.append("V ");
@@ -428,7 +413,6 @@ public class PlayerAI extends Player {
                     playerBuild.append(fireArea[i][j]).append(" ");
                 }
             }
-
             playerBuild.append("}\n");
         }
 

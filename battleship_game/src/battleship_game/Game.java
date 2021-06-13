@@ -13,21 +13,24 @@ public class Game implements GameInterface {
     List<Player> players;
     private final int NUMBER_OF_PLAYERS = 2;
 
-
-    //TODO - Add another boolean as argument for adding two ai players
     /*
     TODO - Add Documentation
      */
-    public Game(boolean ai) {
+    public Game(boolean player1_ai, boolean player2_ai) {
         this.players = new ArrayList<>();
 
-        for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
-            if (ai && players.size() > 0) {
-                addPlayer(new PlayerAI());
-            } else {
-                addPlayer(new PlayerHuman());
-            }
+        if (player1_ai) {
+            addPlayer(new PlayerAI());
+        } else {
+            addPlayer(new PlayerHuman());
         }
+
+        if (player2_ai && players.size() > 0) {
+            addPlayer(new PlayerAI());
+        } else {
+            addPlayer(new PlayerHuman());
+        }
+
 
         System.out.println("The game has started!");
     }
@@ -54,21 +57,27 @@ public class Game implements GameInterface {
      */
     @Override
     public void playGame() {
-
         players.get(0).placeShip();
         players.get(1).placeShip();
 
         hits();
 
+        // When the game has ended the winning player receives bonus
+        // points according to the totalHealth left.
         for (Player p : players) {
             if (p.getTotalHealth() > 0) {
-                p.setScore(p.getTotalHealth()); // When the game has ended the winning player receives bonus
-                // points according to the totalHealth left.
+
+                int bonus = p.getTotalHealth();
+                int finalScore = bonus + p.getScore();
+
+
+                System.out.println("Is the total health correct for the winner: " + finalScore);
+                p.setScore(bonus);
             }
+
 
             System.out.println("This is the final score: " + p.getScore());
         }
-
     }
     /*
     TODO - Add Documentation
@@ -123,13 +132,13 @@ public class Game implements GameInterface {
         // Player 2 will have a chance to even out the score.
         // TODO - Add case for the AI player here
         if (turn % 2 == 1 && players.get(turn % 2).getTotalHealth() == 1) {
-            int[] shot = players.get(turn % 2).fireWeapon();
-            int[][] shipsPlacement = players.get(turn % 2).getShipsArea();
+            int[] shot = players.get(turn% 2).fireWeapon();
+            int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
 
             if (shipsPlacement[shot[1]][shot[0]] != 0) {
-                players.get(turn + 1 % 2).setScore(1);
+                players.get(turn% 2).setScore(1);
                 players.get(turn % 2).setTotalHealth();
-                System.out.println("Player " + turn + 1 % 2 + ": " + players.get(turn + 1 % 2).getScore());
+                //System.out.println("Player " + turn % 2 + ": " + players.get(turn + 1 % 2).getScore());
             }
         }
     }

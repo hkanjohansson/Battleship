@@ -19,7 +19,7 @@ public abstract class Player {
     public abstract void setScore(int s); // Increase score
     public abstract int getTotalHealth();
     public abstract void setTotalHealth(); // Decrease total health if hit
-    public abstract List<Ship> getShips();
+
     public abstract int[][] getShipsArea();
     public abstract int[][] getFireArea();
     public abstract void placeShip();

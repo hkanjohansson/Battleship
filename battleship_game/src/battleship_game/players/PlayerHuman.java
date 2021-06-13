@@ -3,7 +3,6 @@ package battleship_game.players;
 import battleship_game.ships.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class PlayerHuman extends Player {
@@ -46,11 +45,6 @@ public class PlayerHuman extends Player {
     @Override
     public void setTotalHealth() {
         totalHealth--;
-    }
-
-    @Override
-    public List<Ship> getShips() {
-        return ships;
     }
 
     @Override
