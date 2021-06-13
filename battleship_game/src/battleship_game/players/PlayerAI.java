@@ -7,15 +7,19 @@ import java.util.List;
 import java.util.Random;
 
 //TODO - Generate javadoc?
+/*
+    TODO - Add Documentation
+     */
 public class PlayerAI extends Player {
 
-    boolean[] missedDirections;
     int hitDirec;
     int hasHit;
     int[] initialHit;
     int[] nextHit;
     int misses;
-
+    /*
+    TODO - Add Documentation
+     */
     public PlayerAI() {
         ships = new ArrayList<>();
         ships.add(new Carrier());
@@ -30,7 +34,7 @@ public class PlayerAI extends Player {
         totalHealth = 0;
         score = 0;
 
-        missedDirections = new boolean[4];
+
         hitDirec = 0;
         hasHit = 0;
         initialHit = new int[2];
@@ -75,20 +79,6 @@ public class PlayerAI extends Player {
         return fireArea;
     }
 
-    public void setMissedDirections(int n, boolean reset) {
-        if (reset) {
-            for (int i = 0; i < missedDirections.length; i++) {
-                missedDirections[i] = false;
-            }
-        } else {
-            missedDirections[n] = true;
-        }
-    }
-
-    public boolean[] getMissedDirections() {
-        return missedDirections;
-    }
-
     public void setHasHit() {
         hasHit++;
     }
@@ -102,7 +92,7 @@ public class PlayerAI extends Player {
     }
 
     public int[] getInitialHit() {
-        return initialHit;
+        return initialHit; // TODO - Should this be initialized in a variable in fireNext?
     }
 
     public void setNextHit(int[] shot) {
@@ -167,7 +157,6 @@ public class PlayerAI extends Player {
                 } else if (horizontal != 0 && yStart + shipSize < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         shipsArea[yStart + i][xStart] = 1;
-                        System.out.println(shipsArea[xStart][yStart]);
                         placed = true;
                     }
                 }
@@ -304,13 +293,14 @@ public class PlayerAI extends Player {
                 }
             }
 
-
-
         }
 
         return new int[]{x, y};
     }
 
+    /*
+    TODO - Add Documentation
+     */
     public int[] fireNext(int x, int y) {
         int[] nextHit = {x, y};
         Random rand = new Random();

@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class PlayerHuman extends Player {
 
+    /*
+    TODO - Add Documentation
+     */
     public PlayerHuman() {
         ships = new ArrayList<>();
         ships.add(new Carrier());
@@ -93,7 +96,6 @@ public class PlayerHuman extends Player {
                 if (horizontal >= 0 && xStart + shipSize < 10 && yStart < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         shipsArea[yStart][xStart + i] = 1;
-                        System.out.println(shipsArea[yStart][xStart]);
                         placed = true;
                     }
 

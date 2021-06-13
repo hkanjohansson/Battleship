@@ -6,18 +6,17 @@ import battleship_game.players.PlayerHuman;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 
 public class Game implements GameInterface {
 
     List<Player> players;
     private final int NUMBER_OF_PLAYERS = 2;
 
-    /*
-    Should the game be initialized with two human players or one human and one AI? If false then a human player 2
-    is added. If true an AI player is added.
 
-    TODO - Add another boolean as argument for adding two ai players
+    //TODO - Add another boolean as argument for adding two ai players
+    /*
+    TODO - Add Documentation
      */
     public Game(boolean ai) {
         this.players = new ArrayList<>();
@@ -33,7 +32,9 @@ public class Game implements GameInterface {
         System.out.println("The game has started!");
     }
 
-
+    /*
+    TODO - Add Documentation
+     */
     @Override
     public void addPlayer(Player p) {
         if (players.size() < NUMBER_OF_PLAYERS) {
@@ -48,6 +49,9 @@ public class Game implements GameInterface {
     TODO - Keep all the scores in a toString method
      */
 
+    /*
+    TODO - Add Documentation
+     */
     @Override
     public void playGame() {
 
@@ -66,18 +70,18 @@ public class Game implements GameInterface {
         }
 
     }
-
+    /*
+    TODO - Add Documentation
+     */
     @Override
     public void hits() {
         int turn = 0;
-        Random rand = new Random();
 
         while (players.get(0).getTotalHealth() > 0 && players.get(1).getTotalHealth() > 0) {
             int[] shot = players.get(turn % 2).fireWeapon();
             int[][] weaponsFired = players.get(turn % 2).getFireArea();
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
 
-            // TODO - Fix error when AI indicates a hit when it is a miss
             if (players.get(turn % 2) instanceof PlayerAI && shipsPlacement[shot[1]][shot[0]] != 0) {
                 ((PlayerAI) players.get(turn % 2)).setHasHit();
 
@@ -95,7 +99,7 @@ public class Game implements GameInterface {
             }
 
             else if (players.get(turn % 2) instanceof PlayerAI &&
-                    ((PlayerAI) players.get(turn % 2)).getHasHit() > 1 ) {
+                    ((PlayerAI) players.get(turn % 2)).getHasHit() >= 1 ) {
 
                 ((PlayerAI) players.get(turn % 2)).setMisses(1); // TODO - Should this be included?
 
