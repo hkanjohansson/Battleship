@@ -1,13 +1,14 @@
 # Battleship
 
 ## How to Use the Program
-
+There are three test cases in the GameMain. One for two AI players, one human and one AI and two humans.
+These are started after getting prompted to input anything from the keyboard.
 ### Placement of Ships
 When starting the program, if you have chosen to play as a human player you will be prompted to where you want to put your ships. 
 If you try to put a ship where it already is another one or outside the game area, you will be told to place your ship 
 in a correct way. 
 
-The case for the AI player is the placing is done by generating random integers and the
+The case for the AI player is the placing is done by generating random integers, and the
 same checks as for the human player is applied.
 
 ### Firing
@@ -16,7 +17,7 @@ fire at each other.
 
 The case for the human player is done in the same fashion as when placing the ships 
 i.e. fire inside the area or where there has not already been fired. If you are not 
-doing it you will get told to fire in a correct way.
+doing it you will get told to fire in a correct way, until you have done it correctly.
 
 The AI player works in the same way with the addition that it should "think" like humans
 when playing Battleships i.e. when hit, search the four directions around. If hit again, continue

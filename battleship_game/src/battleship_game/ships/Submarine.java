@@ -3,10 +3,7 @@ package battleship_game.ships;
 public class Submarine extends Ship{
 
     public Submarine() {
-        super.alive = true;
         super.size = 3;
-        super.health = 3;
-
     }
 
     @Override

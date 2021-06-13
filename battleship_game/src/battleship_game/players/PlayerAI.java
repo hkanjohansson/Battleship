@@ -5,20 +5,17 @@ import battleship_game.ships.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TODO - Generate javadoc?
-/*
-    TODO - Add Documentation
-     */
 public class PlayerAI extends Player {
 
-    int hitDirec;
-    int hasHit;
-    int[] initialHit;
-    int[] nextHit;
-    int misses;
+    int hitDirec; // Which direction to take after hitting the opponents ships
+    int hasHit; // Number of hits that help to decide which direction to shoot next
+    int[] initialHit; // First hit of a ship
+    int[] nextHit; // Next hit of a ship
+    int misses; // Number of misses after hitting a ship more than two times. Helps the AI to switch direction
+
     /*
-    TODO - Add Documentation
-     */
+   Initialize all the various game elements that a player gets when playing a game of battleships.
+    */
     public PlayerAI() {
         ships = new ArrayList<>();
         ships.add(new Carrier());
@@ -84,10 +81,6 @@ public class PlayerAI extends Player {
         initialHit = shot;
     }
 
-    public int[] getInitialHit() {
-        return initialHit; // TODO - Should this be initialized in a variable in fireNext?
-    }
-
     public void setNextHit(int[] shot) {
         nextHit = shot;
     }
@@ -98,10 +91,6 @@ public class PlayerAI extends Player {
         } else {
             misses += n;
         }
-    }
-
-    public int getMisses() {
-        return misses;
     }
 
     /*
@@ -199,7 +188,6 @@ public class PlayerAI extends Player {
                         placed = true;
                     }
 
-
                 } else if (horizontal != 0 && yStart + shipSize < 10) {
 
                     for (int i = 0; i < shipSize; i++) {
@@ -213,7 +201,6 @@ public class PlayerAI extends Player {
                     if (available) {
                         for (int i = 0; i < shipSize; i++) {
                             shipsArea[yStart + i][xStart] = 1;
-
                         }
 
                         placed = true;
@@ -223,7 +210,6 @@ public class PlayerAI extends Player {
                 } else {
                     System.out.println("Place your ship within the game area.");
                 }
-
             }
         }
 
@@ -231,7 +217,8 @@ public class PlayerAI extends Player {
     }
 
     /*
-      Choose where to fire. If outside the area or where there already has been fired, then try again.
+      Choose where to fire. If outside the area or where there already has been fired, then try again. Calls the
+      helper method fireNext().
      */
     @Override
     public int[] fireWeapon() {
@@ -247,10 +234,8 @@ public class PlayerAI extends Player {
         }
 
         while (!fired) {
-            System.out.println("This is the misses for AI: " + misses);
-            System.out.println("Provide coordinates where you want to fire: ");
+            System.out.println("Provide coordinates where you want to fire: \n");
 
-            System.out.println("This is the hasHits: " + hasHit);
             if (hasHit >= 1 && misses < 2) {
                 nextHit = fireNext(nextHit[0], nextHit[1]);
                 x = nextHit[0];
@@ -280,14 +265,14 @@ public class PlayerAI extends Player {
                     fired = true;
                 }
             }
-
         }
 
         return new int[]{x, y};
     }
 
     /*
-    TODO - Add Documentation
+    Contains two switch statements that decides where to fire next. The first one takes care of the case when the AI
+    has hit the opponents ship one time and the second when more than one hit has occurred.
      */
     public int[] fireNext(int x, int y) {
         int[] nextHit = {x, y};
@@ -297,8 +282,7 @@ public class PlayerAI extends Player {
 
         if (hasHit == 1) {
             switch (chooseDirec) {
-                case 0:
-                    // Go left
+                case 0 -> {
                     nextHit[0]--;
                     hitDirec = 0;
                     if (nextHit[0] < 0) {
@@ -306,9 +290,8 @@ public class PlayerAI extends Player {
                         hitDirec = 1;
                         misses++;
                     }
-                    break;
-                case 1:
-                    // Go right
+                }
+                case 1 -> {
                     nextHit[0]++;
                     hitDirec = 1;
                     if (nextHit[0] >= 10) {
@@ -316,9 +299,8 @@ public class PlayerAI extends Player {
                         hitDirec = 0;
                         misses++;
                     }
-                    break;
-                case 2:
-                    // Go down
+                }
+                case 2 -> {
                     nextHit[1]--;
                     hitDirec = 2;
                     if (nextHit[1] < 0) {
@@ -326,9 +308,8 @@ public class PlayerAI extends Player {
                         hitDirec = 3;
                         misses++;
                     }
-                    break;
-                case 3:
-                    // Go up
+                }
+                case 3 -> {
                     nextHit[1]++;
                     hitDirec = 3;
                     if (nextHit[1] >= 10) {
@@ -336,12 +317,12 @@ public class PlayerAI extends Player {
                         hitDirec = 2;
                         misses++;
                     }
-                    break;
+                }
             }
 
         } else if (hasHit > 1) { // Continue in the same direction until a miss occur
             switch (hitDirec) {
-                case 0:
+                case 0 -> {
                     nextHit[0]--;
                     if (nextHit[0] < 0 || fireArea[nextHit[1]][nextHit[0]] != 0) {
                         nextHit = initialHit;
@@ -349,8 +330,8 @@ public class PlayerAI extends Player {
                         hitDirec = 1;
                         misses++;
                     }
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     nextHit[0]++;
                     if (nextHit[0] >= 10 || fireArea[nextHit[1]][nextHit[0]] != 0) {
                         nextHit = initialHit;
@@ -358,8 +339,8 @@ public class PlayerAI extends Player {
                         hitDirec = 0;
                         misses++;
                     }
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     nextHit[1]--;
                     if (nextHit[1] < 0 || fireArea[nextHit[1]][nextHit[0]] != 0) {
                         nextHit = initialHit;
@@ -367,8 +348,8 @@ public class PlayerAI extends Player {
                         hitDirec = 3;
                         misses++;
                     }
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     nextHit[1]++;
                     if (nextHit[1] >= 10 || fireArea[nextHit[1]][nextHit[0]] != 0) {
                         nextHit = initialHit;
@@ -376,7 +357,7 @@ public class PlayerAI extends Player {
                         hitDirec = 2;
                         misses++;
                     }
-                    break;
+                }
             }
         }
 

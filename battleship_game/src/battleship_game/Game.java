@@ -11,49 +11,31 @@ import java.util.List;
 public class Game implements GameInterface {
 
     List<Player> players;
-    private final int NUMBER_OF_PLAYERS = 2;
-
     /*
-    TODO - Add Documentation
+    Initialize the game with human and/or AI players.
      */
     public Game(boolean player1_ai, boolean player2_ai) {
-        this.players = new ArrayList<>();
+        players = new ArrayList<>();
 
         if (player1_ai) {
-            addPlayer(new PlayerAI());
+            players.add(new PlayerAI());
         } else {
-            addPlayer(new PlayerHuman());
+            players.add(new PlayerHuman());
         }
 
         if (player2_ai && players.size() > 0) {
-            addPlayer(new PlayerAI());
+            players.add(new PlayerAI());
         } else {
-            addPlayer(new PlayerHuman());
+            players.add(new PlayerHuman());
         }
-
 
         System.out.println("The game has started!");
     }
 
     /*
-    TODO - Add Documentation
-     */
-    @Override
-    public void addPlayer(Player p) {
-        if (players.size() < NUMBER_OF_PLAYERS) {
-            players.add(p);
-        } else {
-            throw new IllegalArgumentException("No more than two players is allowed.");
-        }
-    }
-
-    /*
-    TODO - Clean up code
-    TODO - Keep all the scores in a toString method
-     */
-
-    /*
-    TODO - Add Documentation
+    1: Each player are placing their ships
+    2: Starts to fire
+    3: Print the score
      */
     @Override
     public void playGame() {
@@ -66,21 +48,18 @@ public class Game implements GameInterface {
         // points according to the totalHealth left.
         for (Player p : players) {
             if (p.getTotalHealth() > 0) {
-
-                int bonus = p.getTotalHealth();
-                int finalScore = bonus + p.getScore();
-
-
-                System.out.println("Is the total health correct for the winner: " + finalScore);
-                p.setScore(bonus);
+                p.setScore(p.getTotalHealth());
             }
-
-
-            System.out.println("This is the final score: " + p.getScore());
         }
+
+        System.out.println("This is the final score for player "+  0 + ": " + players.get(0).getScore());
+        System.out.println("This is the final score for player "+  1 + ": " + players.get(1).getScore());
     }
     /*
-    TODO - Add Documentation
+    The turns are tracked by using modulo 2 to know if it's Player 0 or Player 1.
+
+    First of the case for AI players and then for human players. In the case for AI players we need to track an
+    initial hit and a next hit for choosing the direction to fire.
      */
     @Override
     public void hits() {
@@ -90,6 +69,7 @@ public class Game implements GameInterface {
             int[] shot = players.get(turn % 2).fireWeapon();
             int[][] weaponsFired = players.get(turn % 2).getFireArea();
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
+
 
             if (players.get(turn % 2) instanceof PlayerAI && shipsPlacement[shot[1]][shot[0]] != 0) {
                 ((PlayerAI) players.get(turn % 2)).setHasHit();
@@ -105,32 +85,20 @@ public class Game implements GameInterface {
                 weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
                 System.out.println("Ship hit!");
 
-            }
-
-            else if (players.get(turn % 2) instanceof PlayerAI &&
-                    ((PlayerAI) players.get(turn % 2)).getHasHit() >= 1 ) {
-
-                ((PlayerAI) players.get(turn % 2)).setMisses(1); // TODO - Should this be included?
-
-            }
-
-            else if (players.get(turn % 2) instanceof PlayerHuman && shipsPlacement[shot[1]][shot[0]] != 0) {
-
+            } else if (players.get(turn % 2) instanceof PlayerHuman && shipsPlacement[shot[1]][shot[0]] != 0) {
                 players.get(turn % 2).setScore(1);
                 players.get((turn + 1) % 2).setTotalHealth();
                 weaponsFired[shot[1]][shot[0]] = 2; // To indicate a hit for representation in toString()
                 System.out.println("Ship hit!");
-
             }
 
             System.out.println("Player " + turn % 2 + ": \n" + players.get(turn % 2).toString());
-            System.out.println("Player " + turn % 2 + ": " + players.get(turn % 2).getScore());
+            System.out.println("Player " + turn % 2 + " score after turn " + turn/2 + ": "
+                    + players.get(turn % 2).getScore() + "\n");
 
             turn++;
         }
 
-        // Player 2 will have a chance to even out the score.
-        // TODO - Add case for the AI player here
         if (turn % 2 == 1 && players.get(turn % 2).getTotalHealth() == 1) {
             int[] shot = players.get(turn% 2).fireWeapon();
             int[][] shipsPlacement = players.get((turn + 1) % 2).getShipsArea();
@@ -138,16 +106,7 @@ public class Game implements GameInterface {
             if (shipsPlacement[shot[1]][shot[0]] != 0) {
                 players.get(turn% 2).setScore(1);
                 players.get(turn % 2).setTotalHealth();
-                //System.out.println("Player " + turn % 2 + ": " + players.get(turn + 1 % 2).getScore());
             }
         }
-    }
-
-    /*
-    TODO - Scoreboard representation
-     */
-    @Override
-    public String toString() {
-        return null;
     }
 }

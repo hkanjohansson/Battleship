@@ -9,11 +9,8 @@ public class GameMain {
 
         System.out.println("Input something to start the game for two AI players: ");
         in.next();
-
-        for (int i = 0; i < 100; i++) {
-            Game battleShipsTwoAI = new Game(true, true);
-            battleShipsTwoAI.playGame();
-        }
+        Game battleShipsTwoAI = new Game(true, true);
+        battleShipsTwoAI.playGame();
 
         System.out.println("Input something to start the game for one human and one AI player: ");
         in.next();
@@ -24,6 +21,5 @@ public class GameMain {
         in.next();
         Game battleShipsNoAI = new Game(false, true);
         battleShipsNoAI.playGame();
-
     }
 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class PlayerHuman extends Player {
 
     /*
-    TODO - Add Documentation
+    Initialize all the various game elements that a player gets when playing a game of battleships.
      */
     public PlayerHuman() {
         ships = new ArrayList<>();
@@ -23,9 +23,7 @@ public class PlayerHuman extends Player {
 
         totalHealth = 0;
         score = 0;
-
     }
-
 
     @Override
     public int getScore() {
@@ -102,7 +100,6 @@ public class PlayerHuman extends Player {
                 } else {
                     System.out.println("Try placing your ship within the area.");
                 }
-
             }
 
             totalHealth += shipToPlace.getSize();
@@ -120,7 +117,6 @@ public class PlayerHuman extends Player {
                 System.out.println(shipToPlace.toString() + "Choose your start coordinates: ");
                 int xStart = in.nextInt();
                 int yStart = in.nextInt();
-
 
                 System.out.println("Do you want to place horizontal? Then input an integer " +
                         "greater than or equal to 0. " +
@@ -147,7 +143,6 @@ public class PlayerHuman extends Player {
                         placed = true;
                     }
 
-
                 } else if (horizontal < 0 && yStart + shipSize < 10 && xStart < 10) {
                     for (int i = 0; i < shipSize; i++) {
                         if (shipsArea[yStart + i][xStart] != 0) {
@@ -169,7 +164,6 @@ public class PlayerHuman extends Player {
                 } else {
                     System.out.println("Place your ship within the game area.");
                 }
-
             }
         }
 
@@ -210,11 +204,9 @@ public class PlayerHuman extends Player {
      */
     @Override
     public String toString() {
-
         StringBuilder playerBuild = new StringBuilder();
 
         for (int i = 0; i < HEIGHT; i++) {
-
             playerBuild.append("{ ");
             for (int j = 0; j < WIDTH; j++) {
                 if (shipsArea[i][j] != 0) {
@@ -224,7 +216,6 @@ public class PlayerHuman extends Player {
 
                     playerBuild.append(shipsArea[i][j]).append(" ");
                 }
-
             }
 
             playerBuild.append("} | ");
@@ -239,7 +230,6 @@ public class PlayerHuman extends Player {
                     playerBuild.append(fireArea[i][j]).append(" ");
                 }
             }
-
             playerBuild.append("}\n");
         }
 
